@@ -89,6 +89,8 @@ async function run() {
             const reviews = await cursor.toArray();
             res.send(reviews);
         });
+
+
         //GET order API
         app.get('/orders', async (req, res) => {
             const cursor = orderCollection.find({});
@@ -96,13 +98,26 @@ async function run() {
             res.send(packages);
         });
 
-        //Delete Api
+
+        //Delete order Api
         app.delete('/orders/:id',async(req, res)=>{
+            var ObjectId = require('mongodb').ObjectID;
             const id = req.params.id;
             const query ={_id: ObjectId(id)};
             const result = await orderCollection.deleteOne(query);
             console.log('deleted',result);
 
+            res.json(result);
+        })
+
+
+        //Delete product Api
+        app.delete('/products/:id',async(req, res)=>{
+            const ObjectId = require('mongodb').ObjectID;
+            const id = req.params.id;
+            const query ={_id: ObjectId(id)};
+            const result = await productCollection.deleteOne(query);
+            console.log('deleted',result);
             res.json(result);
         })
 
