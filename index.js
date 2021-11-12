@@ -51,8 +51,18 @@ async function run() {
             console.log(result);
             res.json(result)
          });
+
+          //add admin api
+        app.put('/users/admin',async(req,res)=>{
+            const user = req.body;
+            console.log('put',user);
+            const filter = {email:user.email}
+            const updateDoc={$set:{role:'admin'}}
+            const result = userCollection.updateOne(filter, updateDoc )
+            res.json(result);
+        })
         
-         //get user API
+         //get admin API
         app.get('/users/:email', async (req, res) => {
 
             const email = req.params.email;
@@ -122,15 +132,7 @@ async function run() {
         })
 
 
-        //add admin
-        app.put('/users/admin',async(req,res)=>{
-            const user = req.body;
-            console.log('put',user);
-            const filter = {email:user.email}
-            const updateDoc={$set:{role:'admin'}}
-            const result = userCollection.updateOne(filter, updateDoc )
-            res.json(result);
-        })
+       
 
 
     }
