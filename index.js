@@ -123,7 +123,7 @@ async function run() {
 
         //Delete product Api
         app.delete('/products/:id',async(req, res)=>{
-            const ObjectId = require('mongodb').ObjectID;
+            var ObjectId = require('mongodb').ObjectID;
             const id = req.params.id;
             const query ={_id: ObjectId(id)};
             const result = await productCollection.deleteOne(query);
